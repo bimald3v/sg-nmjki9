@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Before There Was Us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Karla:ital,wght@0,400;0,600;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: a family album opened on velvet — prints with white borders, Kodak-style orange date stamps,
+   two lives side by side (Aruna on the left, Bimal on the right) until they converge. Built for a projector. */
+:root{
+  color-scheme: dark;
+  --velvet:#241016; --velvet-2:#321821; --velvet-3:#45222e;
+  --paper:#f6efe3; --ink:#f4e8da; --ink-2:#cdb6a8; --muted:#94786c;
+  --marigold:#f2a93b; --stamp:#ff7b2e;
+  --her:#f2a93b; --him:#8fb7e8;
+  --display:"Gloock", Georgia, "Times New Roman", serif;
+  --body:"Karla", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono:"Share Tech Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--velvet);color:var(--ink);font:17px/1.55 var(--body);-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(circle at 20% 0%, #3a1a26 0, transparent 45%), radial-gradient(circle at 90% 60%, #2f1520 0, transparent 40%)}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:700px){.wrap{padding-left:40px;padding-right:40px}}
+section{padding-block:clamp(56px,9vh,104px)}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.05;text-wrap:balance}
+h2{font-size:clamp(2.1rem,5vw,3.6rem)}
+p{margin:0}
+.stamp{font:400 .95rem/1 var(--mono);color:var(--stamp);letter-spacing:.12em;text-shadow:0 0 6px rgba(255,123,46,.55)}
+.eyebrow{font:700 .76rem/1 var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--marigold)}
+.narr{font-family:var(--display);font-size:clamp(1.2rem,2.2vw,1.6rem);line-height:1.4;color:var(--ink-2);max-width:40ch;margin-top:18px}
+.narr em{color:var(--ink);font-style:normal}
+.lede{color:var(--ink-2);max-width:62ch;margin-top:14px;font-size:1.08rem}
+.her{color:var(--her)} .him{color:var(--him)}
+
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(64px,12vh,140px) clamp(40px,8vh,80px);text-align:center}
+.hero .stamp{margin-bottom:22px;display:block}
+.hero h1{font-size:clamp(3rem,10vw,7.4rem)}
+.hero .sub{font-family:var(--display);font-style:italic;color:var(--ink-2);font-size:clamp(1.15rem,2.4vw,1.6rem);margin-top:14px}
+.hero .sub b{font-weight:400;color:var(--ink)}
+.hero-prints{display:flex;justify-content:center;align-items:center;gap:clamp(18px,5vw,64px);margin-top:44px;flex-wrap:wrap}
+.hero-prints .print{width:min(300px,40vw)}
+.hero-prints .print:first-child{transform:rotate(-4deg)}
+.hero-prints .print:last-child{transform:rotate(3.5deg)}
+
+/* the big slideshow placeholder */
+.play-tile{display:flex;align-items:center;gap:22px;margin:56px auto 0;max-width:760px;width:100%;text-align:left;cursor:pointer;
+  background:linear-gradient(135deg,var(--velvet-3),var(--velvet-2));border:2px dashed var(--marigold);border-radius:22px;padding:24px 28px;color:var(--ink);font:inherit;transition:transform .15s, border-style .15s}
+.play-tile:hover,.play-tile:focus-visible{transform:translateY(-2px);border-style:solid;outline:none}
+.play-tile .disc{flex:none;width:76px;height:76px;border-radius:50%;background:var(--marigold);display:grid;place-items:center;box-shadow:0 0 0 8px rgba(242,169,59,.18)}
+.play-tile .disc svg{width:30px;height:30px;margin-left:5px;fill:var(--velvet)}
+.play-tile strong{display:block;font:400 clamp(1.4rem,2.6vw,1.9rem)/1.1 var(--display)}
+.play-tile span{display:block;color:var(--ink-2);font-size:.95rem;margin-top:6px}
+.play-tile kbd{font:400 .8rem var(--mono);border:1px solid var(--muted);border-radius:5px;padding:1px 6px;color:var(--ink)}
+
+/* ---------- prints ---------- */
+.print{background:var(--paper);padding:10px 10px 12px;border-radius:3px;box-shadow:0 14px 30px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.3);position:relative;cursor:zoom-in;transition:transform .2s ease, box-shadow .2s ease;display:block;border:0;width:100%;text-align:left;font:inherit;color:inherit}
+.print:hover,.print:focus-visible{transform:translateY(-4px) rotate(0deg) !important;box-shadow:0 22px 40px rgba(0,0,0,.55);outline:none}
+.print:focus-visible{box-shadow:0 0 0 3px var(--marigold),0 22px 40px rgba(0,0,0,.55)}
+.print img{display:block;width:100%;height:auto;max-width:100%;background:#d8cfc0}
+.print .cap{font:600 .88rem/1.35 var(--body);color:#3b2a24;padding:9px 4px 0}
+.print .ds{position:absolute;right:18px;bottom:44px;font:400 .82rem var(--mono);color:var(--stamp);text-shadow:0 0 5px rgba(255,123,46,.8);pointer-events:none}
+.print::before{content:"";position:absolute;top:-9px;left:50%;width:74px;height:20px;transform:translateX(-50%) rotate(-3deg);background:rgba(242,226,190,.55);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+
+/* ---------- chapters ---------- */
+.chapter-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px 32px;align-items:end}
+@media (max-width:760px){.chapter-head{grid-template-columns:1fr}}
+.chapter-head .num{font:400 .95rem var(--mono);color:var(--stamp);letter-spacing:.14em;margin-bottom:12px;text-shadow:0 0 6px rgba(255,123,46,.5)}
+.play-chap{display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--ink);border:1.5px solid var(--marigold);border-radius:999px;padding:10px 18px;font:700 .9rem var(--body);cursor:pointer;white-space:nowrap}
+.play-chap:hover,.play-chap:focus-visible{background:var(--marigold);color:var(--velvet);outline:none}
+.play-chap svg{width:14px;height:14px;fill:currentColor}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--velvet-3) 15%,var(--velvet-3) 85%,transparent);border:0;margin:0}
+
+/* two lives side by side */
+.lanes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,4vw,56px);margin-top:40px}
+@media (max-width:760px){.lanes{grid-template-columns:1fr}}
+.lane-label{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid var(--velvet-3);padding-bottom:10px;margin-bottom:22px}
+.lane-label h3{font-size:1.7rem}
+.lane-label .stamp{font-size:.82rem}
+.prints{columns:2 220px;column-gap:22px}
+.prints .print{break-inside:avoid;margin-bottom:26px}
+.prints .print:nth-child(3n+1){transform:rotate(-1.6deg)}
+.prints .print:nth-child(3n+2){transform:rotate(1.2deg)}
+.prints .print:nth-child(3n){transform:rotate(-.5deg)}
+.mixed{columns:3 240px;column-gap:24px;margin-top:40px}
+.mixed .print{break-inside:avoid;margin-bottom:28px}
+.mixed .print:nth-child(4n+1){transform:rotate(-1.4deg)}
+.mixed .print:nth-child(4n+2){transform:rotate(1deg)}
+.mixed .print:nth-child(4n+3){transform:rotate(-.4deg)}
+.mixed .print:nth-child(4n){transform:rotate(1.6deg)}
+.tag{display:inline-block;font:700 .66rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;padding:4px 7px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.tag.A{background:rgba(242,169,59,.18);color:#9a5a00} .tag.B{background:rgba(143,183,232,.25);color:#2d5487}
+
+/* personality loading */
+.loading{margin-top:8px;height:8px;border-radius:99px;background:#e3d8c6;overflow:hidden}
+.loading i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--marigold),var(--stamp))}
+.loading-label{font:400 .72rem var(--mono);color:#8a6d5f;margin-top:8px;letter-spacing:.08em}
+
+/* spot game */
+.spot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:28px;margin-top:40px}
+.spot-card{background:var(--velvet-2);border:1px solid var(--velvet-3);border-radius:20px;padding:20px}
+.spot-card h3{font-size:1.5rem;margin-bottom:6px}
+.spot-card p{color:var(--ink-2);font-size:.95rem;margin-bottom:14px}
+
+/* convergence */
+.converge{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;margin-top:44px}
+.converge .line{height:3px;border-radius:3px}
+.converge .line.a{background:linear-gradient(90deg,transparent,var(--her))}
+.converge .line.b{background:linear-gradient(270deg,transparent,var(--him))}
+.converge .knot{font:400 1.05rem var(--mono);color:var(--stamp);text-align:center;border:1.5px solid var(--stamp);border-radius:999px;padding:8px 16px;text-shadow:0 0 6px rgba(255,123,46,.5)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px;margin-top:40px}
+.fact{background:var(--velvet-2);border:1px solid var(--velvet-3);border-radius:16px;padding:20px}
+.fact .n{font:400 clamp(2rem,4vw,2.8rem)/1 var(--display);color:var(--marigold)}
+.fact .l{font-weight:700;margin-top:8px}
+.fact .d{color:var(--ink-2);font-size:.9rem;margin-top:4px}
+.finale{text-align:center;padding-block:clamp(80px,14vh,160px)}
+.finale .narr{margin-inline:auto;max-width:34ch}
+.finale h2{font-size:clamp(2.6rem,7vw,5.2rem);margin-top:34px}
+.finale h2 .amp{color:var(--marigold);font-style:italic}
+.gap-note{margin-top:28px;border:1.5px dashed var(--muted);border-radius:16px;padding:18px 20px;color:var(--ink-2);font-size:.95rem;max-width:720px}
+.gap-note b{color:var(--ink)}
+.foot{text-align:center;color:var(--muted);font-size:.82rem;padding-block:32px}
+
+/* ---------- slideshow ---------- */
+.ss{position:fixed;inset:0;z-index:50;background:#0b0507;display:grid;grid-template-rows:auto 1fr auto;color:var(--ink)}
+.ss[hidden]{display:none!important}
+.ss-top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));font-size:.9rem;color:var(--ink-2)}
+.ss-top .chap{font:400 .9rem var(--mono);color:var(--stamp);letter-spacing:.1em}
+.ss-stage{position:relative;overflow:hidden;display:grid;place-items:center;min-height:0}
+.ss-frame{position:relative;box-sizing:content-box;border:8px solid var(--paper);box-shadow:0 20px 60px rgba(0,0,0,.6);background:#000;animation:fadeIn .6s ease both}
+.ss-frame img{display:block;width:100%;height:100%;object-fit:contain}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.ss-card{text-align:center;max-width:900px;padding:24px;animation:fadeIn .6s ease both}
+.ss-card .num{font:400 1.1rem var(--mono);color:var(--stamp);letter-spacing:.16em;text-shadow:0 0 6px rgba(255,123,46,.5)}
+.ss-card h2{font-size:clamp(2.6rem,7vw,5.4rem);margin-top:16px}
+.ss-card p{font-family:var(--display);font-size:clamp(1.2rem,2.6vw,1.9rem);color:var(--ink-2);margin-top:20px;line-height:1.4}
+.ss-bottom{padding:10px max(16px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:grid;grid-template-columns:1fr auto;gap:12px 20px;align-items:center}
+.ss-caption{font:400 clamp(1.15rem,2.2vw,1.7rem)/1.3 var(--display);min-height:1.3em}
+.ss-caption .who{font:700 .72rem var(--body);letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:4px}
+.ss-ctrls{display:flex;gap:8px;align-items:center}
+.ss-ctrls button{background:var(--velvet-2);color:var(--ink);border:1px solid var(--velvet-3);border-radius:999px;height:44px;min-width:44px;padding:0 14px;font:600 .9rem var(--body);cursor:pointer}
+.ss-ctrls button:hover,.ss-ctrls button:focus-visible{border-color:var(--marigold);outline:none}
+.ss-progress{grid-column:1/-1;height:3px;background:var(--velvet-2);border-radius:3px;overflow:hidden}
+.ss-progress i{display:block;height:100%;width:0;background:var(--marigold);transition:width .3s}
+.ss-count{font:400 .85rem var(--mono);color:var(--muted)}
+.ss-nav{position:absolute;top:0;bottom:0;width:22%;background:transparent;border:0;cursor:pointer}
+.ss-nav.prev{left:0;cursor:w-resize} .ss-nav.next{right:0;cursor:e-resize}
+.spot-overlay{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.spot-overlay .cd{font:400 clamp(5rem,16vw,11rem)/1 var(--display);color:var(--marigold);text-shadow:0 6px 30px rgba(0,0,0,.8)}
+.spot-ring{position:absolute;width:9vmin;height:9vmin;border:5px solid var(--marigold);border-radius:50%;box-shadow:0 0 0 9999px rgba(0,0,0,.55),0 0 30px var(--marigold);transform:translate(-50%,-50%);animation:fadeIn .5s ease both}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero wrap">
+  <span class="stamp">'90s · THANE ⟷ KAKKANAD · 2026</span>
+  <h1>Before There Was Us</h1>
+  <p class="sub">The unofficial prequel to <b>Bimal &amp; Aruna</b>.</p>
+  <div class="hero-prints" id="heroPrints"></div>
+  <button class="play-tile" id="playAll" type="button">
+    <span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l15 8-15 8z"/></svg></span>
+    <span><strong>Start the slideshow</strong><span>Full screen, one photo at a time, as big as the screen allows. Use <kbd>←</kbd> <kbd>→</kbd> to move, <kbd>Space</kbd> to play or pause, <kbd>Esc</kbd> to exit. Or click any photo to start from there.</span></span>
+  </button>
+</header>
+
+<main id="chapters"></main>
+
+<!-- ================= CONVERGENCE ================= -->
+<section class="wrap" id="convergence">
+  <div class="chapter-head">
+    <div><div class="num">CHAPTER VII</div><h2>The convergence</h2>
+      <p class="narr">Two timelines, two cities, two albums. Then, on <em>19 April 2023</em>, a dating app did what two families could not have planned.</p></div>
+  </div>
+  <div class="converge" aria-hidden="true"><div class="line a"></div><div class="knot">19·04·2023</div><div class="line b"></div></div>
+  <div class="facts">
+    <div class="fact"><div class="n">95,451</div><div class="l">WhatsApp messages</div><div class="d">Between 19 Apr 2023 and the week of the wedding. They talked on 1,197 of 1,315 days.</div></div>
+    <div class="fact"><div class="n">~300 hrs</div><div class="l">On video and voice calls</div><div class="d">About 12½ days of their lives, spent on the phone with each other.</div></div>
+    <div class="fact"><div class="n">29·02·24</div><div class="l">"You will marry me"</div><div class="d">Aruna said it on leap day. She was right.</div></div>
+    <div class="fact"><div class="n">871</div><div class="l">Times they texted "I love you"</div><div class="d">And 515 good mornings.</div></div>
+  </div>
+  <p class="gap-note"><b>Placeholder for v1:</b> couple photographs and the full WhatsApp story will be merged in here from the other dashboard.</p>
+</section>
+
+<section class="finale wrap">
+  <span class="stamp">TONIGHT</span>
+  <p class="narr">For years, two families were writing two completely different stories. Neither knew they would eventually become part of the same one.</p>
+  <p class="narr"><em>Tonight, those stories come together.</em></p>
+  <h2>Bimal <span class="amp">&amp;</span> Aruna</h2>
+</section>
+<div class="foot">Made from the family albums in Thane and Kakkanad · Photos restored without AI, only rotated and colour-corrected</div>
+
+<!-- ================= SLIDESHOW ================= -->
+<div class="ss" id="ss" hidden role="dialog" aria-modal="true" aria-label="Slideshow">
+  <div class="ss-top"><span class="chap" id="ssChap"></span><span class="ss-count" id="ssCount"></span></div>
+  <div class="ss-stage" id="ssStage"></div>
+  <div class="ss-bottom">
+    <div class="ss-caption" id="ssCap"></div>
+    <div class="ss-ctrls">
+      <button type="button" id="ssPrev" aria-label="Previous">←</button>
+      <button type="button" id="ssPlay" aria-label="Play or pause">❚❚</button>
+      <button type="button" id="ssNext" aria-label="Next">→</button>
+      <button type="button" id="ssFull" aria-label="Full screen">⛶</button>
+      <button type="button" id="ssClose" aria-label="Exit slideshow">Exit</button>
+    </div>
+    <div class="ss-progress"><i id="ssBar"></i></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONTENT — edit captions here. side: "A" = Aruna, "B" = Bimal.
+   ============================================================ */
+const CHAPTERS = [
+  { id:"prologue", num:"PROLOGUE", title:"Every love story starts long before two people meet.",
+    narr:"Somewhere in two different households, two families were busy raising two little humans, completely unaware that their lives would one day become intertwined.",
+    layout:"lanes",
+    photos:[
+      ["a-trio","A","Little Aruna, front and centre."],
+      ["b-grandparents","B","Little Bimal, in very safe hands."],
+    ]},
+  { id:"vips", num:"CHAPTER I", title:"The original VIPs",
+    narr:"Before careers, responsibilities, wedding spreadsheets and guest lists, life was simple. <em>Eat. Sleep. Play. Repeat.</em> And an entire household revolved around each of them.",
+    layout:"lanes",
+    photos:[
+      ["a-birthday","A","Guest of honour at every gathering."],
+      ["a-frock","A","Dressed for the occasion. Every occasion."],
+      ["a-three-girls","A","Front row, naturally."],
+      ["a-teddy","A","Teddy approved."],
+      ["b-walker","B","First set of wheels."],
+      ["b-first-rice","B","First bite, full audience."],
+      ["b-swing-chair","B","Seating arrangements: under negotiation."],
+      ["b-soft-toys","B","A highly successful early toy-acquisition strategy."],
+    ]},
+  { id:"personality", num:"CHAPTER II", title:"Personality loading…",
+    narr:"Early signs of the people they would eventually become.",
+    layout:"mixed", loading:true,
+    photos:[
+      ["b-inner-peace","B","An early attempt at inner peace."],
+      ["a-pool","A","Comfortable in the deep end."],
+      ["b-motorcycle","B","Mobility aspirations preceded driving licences."],
+      ["a-pose","A","Group choreography, in development."],
+      ["b-cap","B","The stylistic experimentation began early."],
+      ["a-hill-kids","A","Already directing the photoshoot."],
+      ["b-stage","B","A brief but promising career in show business."],
+      ["b-swing","B","Peak altitude achieved."],
+    ]},
+  { id:"school", num:"CHAPTER III", title:"The education arc",
+    narr:"Two parallel lives in two different classrooms, about 1,400 km apart.",
+    layout:"lanes", lanes:{A:"Vasant Vihar High School · Thane (W)", B:"Bhavan's Adarsha Vidyalaya · Kakkanad"},
+    photos:[
+      ["a-kindergarten","A","The early years."],
+      ["a-school-2009","A","Academic year 2009–10."],
+      ["a-school-2010","A","Academic year 2010–11."],
+      ["b-first-day","B","Bag packed. Socks pulled up. Ready."],
+      ["b-kindergarten","B","Checked shirts, serious faces."],
+      ["b-school-2007","B","Academic year 2007–08."],
+      ["b-school-std","B","Another year, another class photo."],
+    ],
+    spot:[ // Spot the bride / groom. Set x and y (percent of the photo) to draw a ring on the reveal.
+      {photo:"a-school-2010", who:"A", title:"Spot the bride", x:null, y:null},
+      {photo:"b-school-2007", who:"B", title:"Spot the groom", x:null, y:null},
+    ]},
+  { id:"world", num:"CHAPTER IV", title:"The world beyond the classroom",
+    narr:"Long before they started making travel plans together, their parents were busy showing them the world. Different destinations. Different holidays. Different memories.",
+    layout:"mixed",
+    photos:[
+      ["a-hill-road","A","Leading the way, as usual."],
+      ["b-hill-view","B","Family, plus a view."],
+      ["a-palms","A","Under the palms."],
+      ["b-funfair","B","Funfair faces."],
+      ["a-garden","A","Garden-path portrait."],
+      ["a-snow","A","Snow day."],
+      ["b-car","B","Road-trip crew."],
+      ["a-flowers","A","Among the flowers."],
+      ["a-park","A","Day out at the park."],
+    ]},
+  { id:"people", num:"CHAPTER V", title:"The people behind the people",
+    narr:"Neither of them grew up alone. Behind every milestone, every birthday, every school photograph and every family holiday, there were people quietly making it all possible.",
+    layout:"lanes",
+    photos:[
+      ["a-album-page","A","The album before the album."],
+      ["a-held-up","A","Held up high."],
+      ["a-family-white","A","Family portrait."],
+      ["a-birthday-teddy","A","Birthday, with the whole crew."],
+      ["a-family-tv","A","When the TV was the centre of the house."],
+      ["b-family-traditional","B","Family, in their finest."],
+      ["b-ceremony","B","Lamps lit, blessings given."],
+      ["b-dining","B","Around the family table."],
+      ["b-family-sofa","B","Everyone squeezed onto one sofa."],
+      ["b-extended-family","B","Everyone made it into the frame."],
+      ["b-parents","B","The people who made it all possible."],
+    ]},
+  { id:"becoming", num:"CHAPTER VI", title:"Becoming who they are",
+    narr:"Then came school-leaving, college, first jobs, new cities and new friends. Two people slowly turning into the ones we know tonight.",
+    layout:"lanes",
+    photos:[
+      ["a-teen-table","A","The teenage years."],
+      ["a-hilltop","A","Off exploring on her own."],
+      ["b-puppy","B","New best friend acquired."],
+      ["b-rocks","B","Off exploring with friends."],
+      ["b-cake","B","Celebrations, grown-up edition."],
+    ],
+    note:"<b>Placeholder for v1:</b> college, graduation, first jobs and the years just before they met. Add photos here once they're approved."},
+];
+const NAMES = {A:"Aruna", B:"Bimal"};
+const PLACES = {A:"Thane", B:"Kakkanad"};
+const SLIDE_SECONDS = 7;   // per photo in autoplay
+const CARD_SECONDS = 6;    // per chapter title card
+
+/* ============================================================ */
+const $ = s => document.querySelector(s);
+const src = slug => `img/${slug}.jpg`;
+const playIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l15 8-15 8z"/></svg>';
+
+/* Build the slideshow sequence: chapter card, then each photo (and spot games). */
+const SLIDES = [];
+const slideIndex = {};
+CHAPTERS.forEach(ch => {
+  ch.start = SLIDES.length;
+  SLIDES.push({type:"card", ch});
+  ch.photos.forEach(([slug, side, cap]) => { slideIndex[slug] = SLIDES.length; SLIDES.push({type:"photo", ch, slug, side, cap}); });
+  (ch.spot || []).forEach(sp => SLIDES.push({type:"spot", ch, ...sp}));
+});
+SLIDES.push({type:"card", ch:{num:"CHAPTER VII", title:"The convergence", narr:"Then, on 19 April 2023, a dating app did what two families could not have planned."}});
+SLIDES.push({type:"card", ch:{num:"TONIGHT", title:"Bimal & Aruna", narr:"For years, two families were writing two different stories. Tonight, those stories come together."}});
+
+function printEl(slug, side, cap, extra = ""){
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "print"; b.dataset.slug = slug;
+  b.setAttribute("aria-label", `Open slideshow at: ${cap}`);
+  b.innerHTML = `<img src="${src(slug)}" alt="${cap}" loading="lazy">
+    <div class="cap"><span class="tag ${side}">${NAMES[side]}</span>${cap}${extra}</div>`;
+  b.addEventListener("click", () => openShow(slideIndex[slug]));
+  return b;
+}
+
+/* Hero prints */
+[["a-trio","A","Aruna"],["b-grandparents","B","Bimal"]].forEach(([s, side, n]) => $("#heroPrints").appendChild(printEl(s, side, `${n}, ${PLACES[side]}`)));
+
+/* Chapters */
+const main = $("#chapters");
+CHAPTERS.forEach((ch, ci) => {
+  main.appendChild(Object.assign(document.createElement("hr"), {className:"divider"}));
+  const sec = document.createElement("section"); sec.className = "wrap"; sec.id = ch.id;
+  sec.innerHTML = `<div class="chapter-head"><div><div class="num">${ch.num}</div><h2>${ch.title}</h2><p class="narr">${ch.narr}</p></div>
+    <button class="play-chap" type="button">${playIcon} Play this chapter</button></div>`;
+  sec.querySelector(".play-chap").addEventListener("click", () => openShow(ch.start, true));
+  const loadBar = ch.loading ? `<div class="loading"><i></i></div><div class="loading-label">PERSONALITY LOADED · 100%</div>` : "";
+  if (ch.layout === "lanes"){
+    const lanes = document.createElement("div"); lanes.className = "lanes";
+    ["A","B"].forEach(side => {
+      const col = document.createElement("div");
+      const label = ch.lanes ? ch.lanes[side] : PLACES[side];
+      col.innerHTML = `<div class="lane-label"><h3 class="${side === "A" ? "her" : "him"}">${NAMES[side]}</h3><span class="stamp">${label.toUpperCase()}</span></div>`;
+      const grid = document.createElement("div"); grid.className = "prints";
+      ch.photos.filter(p => p[1] === side).forEach(([s, sd, c]) => grid.appendChild(printEl(s, sd, c, loadBar)));
+      col.appendChild(grid); lanes.appendChild(col);
+    });
+    sec.appendChild(lanes);
+  } else {
+    const grid = document.createElement("div"); grid.className = "mixed";
+    ch.photos.forEach(([s, sd, c]) => grid.appendChild(printEl(s, sd, c, loadBar)));
+    sec.appendChild(grid);
+  }
+  if (ch.spot){
+    const wrap = document.createElement("div"); wrap.className = "spot";
+    ch.spot.forEach(sp => {
+      const i = SLIDES.findIndex(s => s.type === "spot" && s.photo === sp.photo);
+      const card = document.createElement("div"); card.className = "spot-card";
+      card.innerHTML = `<div class="eyebrow">Audience game</div><h3>${sp.title}</h3><p>Five seconds on the big screen. Can you find ${NAMES[sp.who]} in the class photo?</p>`;
+      const pr = printEl(sp.photo, sp.who, `${sp.title}: play the game`); pr.onclick = null;
+      pr.addEventListener("click", e => { e.stopImmediatePropagation(); openShow(i); }, true);
+      card.appendChild(pr); wrap.appendChild(card);
+    });
+    sec.appendChild(wrap);
+  }
+  if (ch.note){ const n = document.createElement("p"); n.className = "gap-note"; n.innerHTML = ch.note; sec.appendChild(n); }
+  main.appendChild(sec);
+});
+
+/* ============================================================
+   SLIDESHOW
+   ============================================================ */
+const ss = $("#ss"), stage = $("#ssStage"), cap = $("#ssCap"), bar = $("#ssBar");
+let cur = 0, playing = false, timer = null, stopAt = null, countdown = null, lastFocus = null;
+
+function render(){
+  clearTimeout(timer); clearInterval(countdown);
+  const s = SLIDES[cur];
+  stage.innerHTML = ""; cap.innerHTML = "";
+  $("#ssChap").textContent = s.ch.num + " · " + s.ch.title.replace(/<[^>]+>/g, "");
+  $("#ssCount").textContent = `${cur + 1} / ${SLIDES.length}`;
+  bar.style.width = ((cur + 1) / SLIDES.length * 100) + "%";
+  let secs = SLIDE_SECONDS;
+  if (s.type === "card"){
+    stage.innerHTML = `<div class="ss-card"><div class="num">${s.ch.num}</div><h2>${s.ch.title}</h2><p>${s.ch.narr || ""}</p></div>`;
+    secs = CARD_SECONDS;
+  } else if (s.type === "photo"){
+    framed(src(s.slug), s.cap);
+    cap.innerHTML = `<span class="who ${s.side === "A" ? "her" : "him"}">${NAMES[s.side]} · ${PLACES[s.side]}</span>${s.cap}`;
+  } else if (s.type === "spot"){
+    const box = framed(src(s.photo), s.title);
+    const ov = document.createElement("div"); ov.className = "spot-overlay"; ov.innerHTML = '<div class="cd">5</div>'; stage.appendChild(ov);
+    cap.innerHTML = `<span class="who ${s.who === "A" ? "her" : "him"}">Audience game</span>${s.title}! You have five seconds…`;
+    let n = 5;
+    countdown = setInterval(() => {
+      n--;
+      if (n > 0){ ov.firstChild.textContent = n; return; }
+      clearInterval(countdown); ov.remove();
+      if (s.x != null && s.y != null){
+        const ring = document.createElement("div"); ring.className = "spot-ring"; ring.style.left = s.x + "%"; ring.style.top = s.y + "%"; box.appendChild(ring);
+        cap.innerHTML = `<span class="who ${s.who === "A" ? "her" : "him"}">Found!</span>There's ${NAMES[s.who]}.`;
+      } else {
+        cap.innerHTML = `<span class="who ${s.who === "A" ? "her" : "him"}">Time's up</span>${NAMES[s.who]}, stand up and show everyone where you are!`;
+      }
+    }, 1000);
+    secs = 12;
+  }
+  // preload the next photo
+  const nx = SLIDES[cur + 1]; if (nx && (nx.slug || nx.photo)) { const p = new Image(); p.src = src(nx.slug || nx.photo); }
+  if (playing){
+    if (stopAt != null && cur >= stopAt){ setPlaying(false); return; }
+    timer = setTimeout(() => go(1), secs * 1000);
+  }
+}
+/* Fit a photo to the stage: as large as possible, never cropped, never overflowing. */
+const BORDER = 8, GAP = 16;
+function fitFrame(frame){
+  const img = frame.firstChild; if (!img.naturalWidth) return;
+  const r = stage.getBoundingClientRect();
+  const aw = r.width - 2 * (GAP + BORDER), ah = r.height - 2 * (GAP + BORDER);
+  const k = Math.min(aw / img.naturalWidth, ah / img.naturalHeight);
+  frame.style.width = Math.floor(img.naturalWidth * k) + "px";
+  frame.style.height = Math.floor(img.naturalHeight * k) + "px";
+}
+function framed(url, alt){
+  const frame = document.createElement("div"); frame.className = "ss-frame"; frame.style.visibility = "hidden";
+  const img = new Image(); img.alt = alt;
+  img.onload = () => { fitFrame(frame); frame.style.visibility = ""; };
+  img.src = url; frame.appendChild(img); stage.appendChild(frame);
+  if (img.complete && img.naturalWidth) { fitFrame(frame); frame.style.visibility = ""; }
+  return frame;
+}
+addEventListener("resize", () => { const f = stage.querySelector(".ss-frame"); if (f) fitFrame(f); });
+document.addEventListener("fullscreenchange", () => setTimeout(() => { const f = stage.querySelector(".ss-frame"); if (f) fitFrame(f); }, 60));
+function go(d){ const n = cur + d; if (n < 0) return; if (n >= SLIDES.length){ setPlaying(false); return; } cur = n; render(); }
+function setPlaying(p){ playing = p; $("#ssPlay").textContent = p ? "❚❚" : "▶"; if (p) render(); else clearTimeout(timer); }
+function openShow(i = 0, chapterOnly = false){
+  lastFocus = document.activeElement;
+  cur = i;
+  stopAt = null;
+  if (chapterOnly){ const ch = SLIDES[i].ch; let j = i; while (SLIDES[j + 1] && SLIDES[j + 1].ch === ch) j++; stopAt = j; }
+  ss.hidden = false; document.body.style.overflow = "hidden";
+  playing = chapterOnly || i === 0; $("#ssPlay").textContent = playing ? "❚❚" : "▶";
+  render(); $("#ssNext").focus();
+  if (i === 0 && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+}
+function closeShow(){
+  setPlaying(false); clearInterval(countdown); ss.hidden = true; document.body.style.overflow = "";
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  if (lastFocus) lastFocus.focus();
+}
+$("#playAll").addEventListener("click", () => openShow(0));
+$("#ssPrev").addEventListener("click", () => go(-1));
+$("#ssNext").addEventListener("click", () => go(1));
+$("#ssPlay").addEventListener("click", () => setPlaying(!playing));
+$("#ssClose").addEventListener("click", closeShow);
+$("#ssFull").addEventListener("click", () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.());
+["prev","next"].forEach(k => { const b = document.createElement("button"); b.className = "ss-nav " + k; b.type = "button"; b.tabIndex = -1; b.setAttribute("aria-hidden", "true"); b.addEventListener("click", () => go(k === "next" ? 1 : -1)); stage.parentElement.insertBefore(b, stage.nextSibling); });
+document.querySelectorAll(".ss-nav").forEach(n => ss.querySelector(".ss-stage").appendChild(n));
+const _render = render; // keep nav buttons when the stage is cleared
+render = function(){ const navs = [...ss.querySelectorAll(".ss-nav")]; _render(); navs.forEach(n => stage.appendChild(n)); };
+addEventListener("keydown", e => {
+  if (ss.hidden){ if (e.key === "s" || e.key === "S") openShow(0); return; }
+  if (e.key === "ArrowRight" || e.key === "PageDown"){ e.preventDefault(); go(1); }
+  else if (e.key === "ArrowLeft" || e.key === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (e.key === " "){ e.preventDefault(); setPlaying(!playing); }
+  else if (e.key === "Escape"){ closeShow(); }
+  else if (e.key === "f" || e.key === "F"){ document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+});
+// open straight into the slideshow with #play or #slide=12 in the link
+const hm = location.hash.match(/^#(?:play|slide=(\d+))$/);
+if (hm) openShow(Math.min(SLIDES.length - 1, Math.max(0, (+hm[1] || 1) - 1)));
+// swipe on phones
+let tx = null; stage.addEventListener("touchstart", e => tx = e.touches[0].clientX, {passive:true});
+stage.addEventListener("touchend", e => { if (tx == null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); tx = null; });
+</script>
+</body>
+</html>
